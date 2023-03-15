@@ -1,3 +1,20 @@
+output "database_name" {
+  value       = var.database_name
+  description = "Database name"
+}
+
+output "database_port" {
+  value       = join("", aws_db_instance.default.*.port)
+  description = "DB port"
+  sensitive   = true
+}
+
+output "master_username" {
+  value       = join("", aws_db_instance.default.*.username)
+  description = "Username for the master DB user"
+  sensitive   = true
+}
+
 output "instance_id" {
   value       = join("", aws_db_instance.default.*.id)
   description = "ID of the instance"
