@@ -170,7 +170,12 @@ resource "aws_security_group" "default" {
   name        = module.this.id
   description = "Allow inbound traffic from the security groups"
   vpc_id      = var.vpc_id
-  tags        = module.this.tags
+
+  tags = merge(module.this.tags,
+    {
+      Name = "${module.this.id}-rds"
+    }
+  )
 }
 
 resource "aws_security_group_rule" "ingress_security_groups" {
