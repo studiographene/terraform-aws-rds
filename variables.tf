@@ -28,6 +28,12 @@ variable "associate_security_group_ids" {
   description = "The IDs of the existing security groups to associate with the DB instance"
 }
 
+variable "intra_security_group_traffic_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to allow traffic between resources inside the database's security group."
+}
+
 variable "database_name" {
   type        = string
   default     = null

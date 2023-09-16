@@ -202,6 +202,17 @@ resource "aws_security_group_rule" "ingress_cidr_blocks" {
   security_group_id = join("", aws_security_group.default.*.id)
 }
 
+resource "aws_security_group_rule" "traffic_inside_security_group" {
+  count             = module.this.enabled && var.intra_security_group_traffic_enabled ? 1 : 0
+  description       = "Allow traffic between members of the database security group"
+  type              = "ingress"
+  from_port         = var.database_port
+  to_port           = var.database_port
+  protocol          = "tcp"
+  self              = true
+  security_group_id = join("", aws_security_group.default.*.id)
+}
+
 resource "aws_security_group_rule" "egress" {
   count             = module.this.enabled ? 1 : 0
   description       = "Allow all egress traffic"
