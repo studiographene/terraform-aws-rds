@@ -48,6 +48,10 @@ resource "aws_db_instance" "default" {
     )
   )
 
+  blue_green_update {
+    enabled = var.backup_retention_period > 0 && var.enable_blue_green_update
+  }
+
   db_subnet_group_name = local.db_subnet_group_name
   availability_zone    = local.availability_zone
 
@@ -167,7 +171,7 @@ resource "aws_db_subnet_group" "default" {
 resource "aws_security_group" "default" {
   count = module.this.enabled ? 1 : 0
 
-  name        = module.this.id
+  name        = "${module.this.id}-rds"
   description = "Allow inbound traffic from the security groups"
   vpc_id      = var.vpc_id
 

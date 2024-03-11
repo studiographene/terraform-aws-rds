@@ -357,3 +357,9 @@ variable "timeouts" {
     delete = "60m"
   }
 }
+
+variable "enable_blue_green_update" {
+  description = "Whether to enable RDS blue green update. Requires `backup_retention_period` > 0."
+  type        = bool
+  default     = true
+}
