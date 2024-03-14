@@ -64,3 +64,8 @@ output "resource_id" {
   value       = join("", aws_db_instance.default.*.resource_id)
   description = "The RDS Resource ID of this instance."
 }
+
+output "instance_name" {
+  description = "RDS instance name"
+  value       = aws_db_instance.default.identifier
+}
