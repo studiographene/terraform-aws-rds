@@ -115,8 +115,9 @@ resource "aws_db_parameter_group" "default" {
   tags        = module.this.tags
 
   parameter {
-    name  = "rds.logical_replication"
-    value = "1"
+    apply_method = "pending-reboot"
+    name         = "rds.logical_replication"
+    value        = "1"
   }
 
   dynamic "parameter" {

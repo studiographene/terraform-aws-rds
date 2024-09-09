@@ -1,3 +1,15 @@
+# v1.4.2
+
+### What:
+
+> Fix
+
+`logical_replication` apply method fixed to "pending deployment"
+
+#### Why:
+
+#### info:
+
 # v1.4.1
 
 ### What:
