@@ -1,3 +1,17 @@
+# v1.4.1
+
+### What:
+
+> Fix
+
+Parameter group parameters to support blue/green deployment
+
+#### Why:
+
+Fix `logical_replication` parameter group parameters to support blue/green deployment
+
+#### info:
+
 # v1.4.0
 
 ### What:

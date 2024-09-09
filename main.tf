@@ -114,6 +114,11 @@ resource "aws_db_parameter_group" "default" {
   family      = var.db_parameter_group
   tags        = module.this.tags
 
+  parameter {
+    name  = "rds.logical_replication"
+    value = "1"
+  }
+
   dynamic "parameter" {
     for_each = var.db_parameter
     content {
