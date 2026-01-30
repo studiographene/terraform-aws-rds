@@ -22,6 +22,18 @@ locals {
   )
 
   availability_zone = var.multi_az ? null : var.availability_zone
+
+  rds_cloudwatch_log_group_prefix = "/aws/rds/instance/${module.this.id}"
+}
+
+resource "aws_cloudwatch_log_group" "exports" {
+  for_each = module.this.enabled && var.create_cloudwatch_log_groups ? toset(var.enabled_cloudwatch_logs_exports) : toset([])
+
+  name              = "${local.rds_cloudwatch_log_group_prefix}/${each.value}"
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  retention_in_days = var.cloudwatch_log_group_retention_in_days
+
+  tags = module.this.tags
 }
 
 resource "aws_db_instance" "default" {
@@ -88,6 +100,7 @@ resource "aws_db_instance" "default" {
   monitoring_role_arn = var.monitoring_role_arn
 
   depends_on = [
+    aws_cloudwatch_log_group.exports,
     aws_db_subnet_group.default,
     aws_security_group.default,
     aws_db_parameter_group.default,
