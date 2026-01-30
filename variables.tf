@@ -309,6 +309,24 @@ variable "enabled_cloudwatch_logs_exports" {
   description = "List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL)."
 }
 
+variable "create_cloudwatch_log_groups" {
+  description = "Whether this module should create the CloudWatch Log Groups used by RDS log exports. If false, log groups must be created elsewhere."
+  type        = bool
+  default     = true
+}
+
+variable "cloudwatch_log_group_kms_key_id" {
+  description = "Optional KMS key ARN/ID for CloudWatch Log Group encryption."
+  type        = string
+  default     = null
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  description = "Optional retention in days for the CloudWatch Log Groups. If null, log events are retained indefinitely."
+  type        = number
+  default     = null
+}
+
 variable "ca_cert_identifier" {
   type        = string
   description = "The identifier of the CA certificate for the DB instance"
